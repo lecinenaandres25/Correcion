@@ -1,0 +1,67 @@
+La universidad Saber es Poder te ha encargado el desarrollo de un sistema de control para la gestión de sus asignaturas y alumnos. Escribe un programa en Java que permita crear y mantener una base de datos con el código de asignatura y créditos ECTS; así como sus alumnos indicando, para cada alumno, su DNI y expediente.
+
+Las asignaturas tienen entre 3 y 12 créditos ECTS.
+
+El programa se realizará con una implementación POO.
+
+Apartado 1: Diseño de clases (2 puntos)
+Constructor de asignatura: acepta código y créditos (inmutables).
+
+El código consta de: 4 dígitos + 2 letras mayúsculas. Las dos letras son las iniciales del nombre de la asignatura (en mayúsculas).
+
+Créditos fuera de rango lanza CreditosFueraDeRangoException.
+
+No hay asignaturas duplicadas.
+
+No hay alumnos duplicados (por DNI). Orden natural de alumnos por DNI.
+
+Clase UtilUniversidad con método validaDNI.
+
+Métodos: getCreditos, getCodigo, getAlumno, setAlumnoAsignatura.
+
+Estructura CRUD interna.
+
+Apartado 2: Clase Principal (1 punto)
+Clase ExamenUniversidad con main. Datos de universidad.dat. Menú:
+
+text
+1- Añadir asignatura
+2- Borrar asignatura
+3- Listado por créditos
+4- Añadir alumno
+5- Listado de alumnos
+6- Alumnos de una asignatura
+7- Extensión: Asignar curso
+0- Salir
+Apartado 3: Persistencia (1 punto)
+Método lectura para cargar datos.
+
+Apartado 4: Métodos específicos
+4.1 nuevaAsignatura (1 punto)
+Solicita código y determina aleatoriamente los créditos (3-12).
+
+4.2 nuevoAlumno (1 punto)
+Solicita DNI y expediente.
+
+4.3 listadoAsignaturas (1 punto)
+Muestra (código, créditos) con tabulador.
+
+4.4 listadoAlumnos (1 punto)
+Formato: %9s\t%s (DNI alineado a la derecha).
+
+4.5 alumnosAsignatura (1 punto)
+Muestra alumnos de una asignatura ordenados por DNI (orden natural).
+
+Apartado 5: Extensión (1 punto)
+Tipos de alumno:
+
+Alumno presencial → interesa su grupo de laboratorio
+
+Alumno online → interesa su plataforma de estudio
+
+Método asignarModalidad que asigna aleatoriamente.
+
+Fórmula
+java
+random(Asignatura.MAXIMO - Asignatura.MINIMO + 1) + Asignatura.MINIMO
+// MINIMO = 3, MAXIMO = 12
