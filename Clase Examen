@@ -1,0 +1,138 @@
+import java.util.*;
+
+public class Examen {
+    private Gestor g;
+    private Scanner teclado;
+    
+    public static void main(String[] args) {
+        Examen examen = new Examen();
+        examen.iniciar();
+    }
+    
+    private void iniciar() {
+        g = Fichero.leer();
+        teclado = new Scanner(System.in);
+        menu();
+    }
+    
+    private void menu() {
+        int opcion;
+        do {
+            System.out.println("1- Añadir avión");
+            System.out.println("2- Borrar avión");
+            System.out.println("3- Listado por número de plazas");
+            System.out.println("0- Salir");
+            
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+            
+            if (opcion < 0 || opcion > 3) {
+                throw new IllegalArgumentException();
+            }
+            ejecutarOpcion(opcion);
+            
+        } while (opcion != 0);
+    }
+    
+    private void ejecutarOpcion(int opcion) {
+        switch(opcion) {
+            case 1:
+                nuevoAvion();
+                break;
+            case 2:
+                borrarAvion();
+                break;
+            case 3:
+                listadoPorPlazas();
+                break;
+        }
+    }
+    
+    // Método nuevoAvión (1 punto)
+    private void nuevoAvion() {
+        try {
+            System.out.print("Introduzca matrícula: ");
+            String matricula = teclado.nextLine();
+            Random rand = new Random();
+            int capacidad = rand.nextInt(Avion.MAXIMO - Avion.MINIMO + 1) + Avion.MINIMO;
+            Avion avion = new Avion(matricula, capacidad);
+            g.addAvion(avion);
+            Fichero.guardar(g);
+            System.out.println("Avión añadido con capacidad: " + capacidad);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    private void borrarAvion() {
+        System.out.print("Introduzca matrícula a borrar: ");
+        String matricula = teclado.nextLine();
+        if (g.removeAvion(matricula)) {
+            Fichero.guardar(g);
+            System.out.println("Avión borrado");
+        } else {
+            System.out.println("Avión no encontrado");
+        }
+    }
+    
+    private void listadoPorPlazas() {
+        System.out.println("Matrícula\tCapacidad");
+        for (Avion a : g.getAvionesOrdenadosPorPlazas()) {
+            System.out.println(a.getMatricula() + "\t" + a.getPlazas());
+        }
+    }
+    
+    // Método nuevoTripulante (1 punto)
+    public void nuevoTripulante() {
+        try {
+            System.out.print("NIF: ");
+            String nif = teclado.nextLine();
+            System.out.print("Nombre: ");
+            String nombre = teclado.nextLine();
+            Tripulante t = new Tripulante(nif, nombre);
+            g.addTripulante(t);
+            Fichero.guardar(g);
+            System.out.println("Tripulante añadido");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // Método listadoAviones (1 punto)
+    public void listadoAviones() {
+        System.out.println("Matrícula\tCapacidad");
+        for (Avion a : g.getAviones()) {
+            System.out.println(a.getMatricula() + "\t" + a.getPlazas());
+        }
+    }
+    
+    // Método listadoTripulantes (1 punto)
+    public void listadoTripulantes() {
+        System.out.println("      NIF\tNombre");
+        for (Tripulante t : g.getTripulantes()) {
+            System.out.println(t);  // Usa el toString con String.format("%9s\t%s", NIF, nombre)
+        }
+    }
+    
+    // Método tripulantesAvion (1 punto)
+    public void tripulantesAvion() {
+        System.out.print("Matrícula del avión: ");
+        String matricula = teclado.nextLine();
+        List<Tripulante> lista = g.getTripulantesAvion(matricula);
+        if (lista.isEmpty()) {
+            System.out.println("No hay tripulantes en ese avión");
+        } else {
+            System.out.println("      NIF\tNombre");
+            for (Tripulante t : lista) {
+                System.out.println(t);
+            }
+        }
+    }
+    
+    // Extensión de la funcionalidad (1 punto)
+    public void asignarEmpleo() {
+        g.asignarEmpleo();
+        Fichero.guardar(g);
+        System.out.println("Empleos asignados aleatoriamente");
+    }
+}
