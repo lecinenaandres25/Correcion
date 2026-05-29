@@ -1,0 +1,26 @@
+import java.io.*;
+
+public class Fichero {
+    private static final String NOMBRE_FICHERO = "datos.dat";
+    
+    // Método lectura (1 punto)
+    public static Gestor leer() {
+        File f = new File(NOMBRE_FICHERO);
+        if (!f.exists()) {
+            return new Gestor();
+        }
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(NOMBRE_FICHERO))) {
+            return (Gestor) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return new Gestor();
+        }
+    }
+    
+    public static void guardar(Gestor g) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(NOMBRE_FICHERO))) {
+            oos.writeObject(g);
+        } catch (IOException e) {
+            System.err.println("Error al guardar: " + e.getMessage());
+        }
+    }
+}
