@@ -1,0 +1,27 @@
+public abstract class TripulanteConEmpleo extends Tripulante {
+    public TripulanteConEmpleo(String NIF, String nombre) {
+        super(NIF, nombre);
+    }
+}
+
+public class TripulanteCabina extends TripulanteConEmpleo {
+    private boolean sobrecargo;
+    
+    public TripulanteCabina(String NIF, String nombre, boolean sobrecargo) {
+        super(NIF, nombre);
+        this.sobrecargo = sobrecargo;
+    }
+    
+    public boolean isSobrecargo() { return sobrecargo; }
+}
+
+public class TripulantePiloto extends TripulanteConEmpleo {
+    private int horasVuelo;
+    
+    public TripulantePiloto(String NIF, String nombre, int horasVuelo) {
+        super(NIF, nombre);
+        this.horasVuelo = horasVuelo;
+    }
+    
+    public int getHorasVuelo() { return horasVuelo; }
+}
