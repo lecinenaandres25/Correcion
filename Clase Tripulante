@@ -1,0 +1,35 @@
+/**
+   Se usa el serializable para almacenar en binario y el comparable porque el enunciado dice que Tripulante tiene una ordenación natural de los nombres
+*/
+public class Tripulante implements Serializable, Comparable<Tripulante> {
+    // Atributos
+    private String NIF;
+    private String nombre;
+    
+    public Tripulante(String NIF, String nombre) {
+        if (NIF == null || nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        if (!Util.validaNIF(NIF)) {
+            throw new IllegalArgumentException();
+        }
+        this.NIF = NIF;
+        this.nombre = nombre;
+    }
+    
+    // No necesito setters porque no se va a modificar, los getters tampoco son necesarios
+    
+    public String getNIF() { return NIF; }
+    public String getNombre() { return nombre; }
+    
+    // Se ordena por el nombre del tripulante
+    @Override
+    public int compareTo(Tripulante t) {
+        return nombre.compareToIgnoreCase(t.nombre);
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%9s\t%s", NIF, nombre);
+    }
+}
