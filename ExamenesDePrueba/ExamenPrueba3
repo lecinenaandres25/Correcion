@@ -1,0 +1,67 @@
+El hotel Descanso Feliz te ha encargado el desarrollo de un sistema de control para la gestión de sus habitaciones y clientes. Escribe un programa en Java que permita crear y mantener una base de datos con el número de habitación y capacidad; así como sus clientes indicando, para cada cliente, su NIF y nombre.
+
+Las habitaciones tienen capacidad entre 1 y 6 personas.
+
+El programa se realizará con una implementación POO.
+
+Apartado 1: Diseño de clases (2 puntos)
+Constructor de habitación: acepta número y capacidad (datos inmutables).
+
+El número de habitación consta de: tres dígitos + una letra mayúscula. La letra es el módulo 26 de la suma de los tres dígitos (A=0, B=1, ..., Z=25).
+
+Capacidad fuera de rango lanza CapacidadFueraDeRangoException.
+
+No hay habitaciones duplicadas.
+
+No hay clientes duplicados (por NIF). Orden natural de clientes por nombre.
+
+Clase UtilHotel con método validaNIF.
+
+Métodos: getCapacidad, getNumero, getCliente, setClienteHabitacion.
+
+Estructura CRUD interna.
+
+Apartado 2: Clase Principal (1 punto)
+Clase ExamenHotel con main. Datos de hotel.dat. Menú:
+
+text
+1- Añadir habitación
+2- Borrar habitación
+3- Listado por capacidad
+4- Añadir cliente
+5- Listado de clientes
+6- Clientes de una habitación
+7- Extensión: Asignar tipo de cliente
+0- Salir
+Apartado 3: Persistencia (1 punto)
+Método lectura para cargar datos del fichero.
+
+Apartado 4: Métodos específicos
+4.1 nuevoHabitacion (1 punto)
+Solicita número y determina aleatoriamente la capacidad (1-6).
+
+4.2 nuevoCliente (1 punto)
+Solicita NIF y nombre.
+
+4.3 listadoHabitaciones (1 punto)
+Muestra (número, capacidad) con tabulador.
+
+4.4 listadoClientes (1 punto)
+Formato: %9s\t%s (NIF alineado a la derecha).
+
+4.5 clientesHabitacion (1 punto)
+Muestra clientes de una habitación ordenados por nombre.
+
+Apartado 5: Extensión (1 punto)
+Tipos de cliente:
+
+Cliente ocasional → interesa su número de visitas
+
+Cliente VIP → interesa su porcentaje de descuento
+
+Método asignarTipoCliente que asigna aleatoriamente.
+
+Fórmula
+java
+random(Habitacion.MAXIMO - Habitacion.MINIMO + 1) + Habitacion.MINIMO
+// MINIMO = 1, MAXIMO = 6
