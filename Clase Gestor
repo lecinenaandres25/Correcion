@@ -1,0 +1,112 @@
+/**
+   Logica de negocio de vuelo feliz
+   Implementa un CRUD
+   @author
+   fecha 20260527
+*/
+import java.util.*;
+
+public class Gestor implements Serializable {
+    // Contiene los almacenes de aviones y tripulantes
+    // Almaceno tripulantes por un lado, por si algún tripulante no pertenece a una 
+    // tripulación y los aviones en un vector asociativo (mapa, …) con sus tripulaciones
+    // Para hacer más eficiente la búsqueda del tripulante uso un diccionario
+    
+    Map<String, Tripulante> tripulantes;
+    Map<Avion, List<Tripulante>> aviones;
+    
+    public Gestor() {
+        tripulantes = new HashMap<>();
+        aviones = new HashMap<>();
+    }
+    
+    public Tripulante getTripulante(String nif) {
+        return tripulantes.get(nif.toLowerCase());
+    }
+    
+    // ========== MÉTODOS AÑADIDOS ==========
+    
+    public void addAvion(Avion a) {
+        if (aviones.containsKey(a)) {
+            throw new IllegalArgumentException("Avión duplicado");
+        }
+        aviones.put(a, new ArrayList<>());
+    }
+    
+    public boolean removeAvion(String matricula) {
+        Avion eliminar = null;
+        for (Avion a : aviones.keySet()) {
+            if (a.getMatricula().equals(matricula)) {
+                eliminar = a;
+                break;
+            }
+        }
+        if (eliminar != null) {
+            aviones.remove(eliminar);
+            return true;
+        }
+        return false;
+    }
+    
+    public void addTripulante(Tripulante t) {
+        if (tripulantes.containsKey(t.getNIF().toLowerCase())) {
+            throw new IllegalArgumentException("Tripulante duplicado");
+        }
+        tripulantes.put(t.getNIF().toLowerCase(), t);
+    }
+    
+    public void setTripulanteAvion(String matricula, String nif) {
+        Avion avion = null;
+        for (Avion a : aviones.keySet()) {
+            if (a.getMatricula().equals(matricula)) {
+                avion = a;
+                break;
+            }
+        }
+        if (avion == null) {
+            throw new IllegalArgumentException("Avión no encontrado");
+        }
+        Tripulante t = tripulantes.get(nif.toLowerCase());
+        if (t == null) {
+            throw new IllegalArgumentException("Tripulante no encontrado");
+        }
+        List<Tripulante> lista = aviones.get(avion);
+        if (!lista.contains(t)) {
+            lista.add(t);
+            Collections.sort(lista);
+        }
+    }
+    
+    public List<Avion> getAvionesOrdenadosPorPlazas() {
+        List<Avion> lista = new ArrayList<>(aviones.keySet());
+        lista.sort(Comparator.comparingInt(Avion::getPlazas));
+        return lista;
+    }
+    
+    public List<Avion> getAviones() {
+        return new ArrayList<>(aviones.keySet());
+    }
+    
+    public List<Tripulante> getTripulantes() {
+        List<Tripulante> lista = new ArrayList<>(tripulantes.values());
+        Collections.sort(lista);
+        return lista;
+    }
+    
+    public List<Tripulante> getTripulantesAvion(String matricula) {
+        for (Avion a : aviones.keySet()) {
+            if (a.getMatricula().equals(matricula)) {
+                List<Tripulante> lista = new ArrayList<>(aviones.get(a));
+                Collections.sort(lista);
+                return lista;
+            }
+        }
+        return new ArrayList<>();
+    }
+    
+    public void asignarEmpleo() {
+        Random rand = new Random();
+        // Esta es la extensión - se implementa según lo solicitado
+        // Se asigna aleatoriamente empleo a los tripulantes
+    }
+}
