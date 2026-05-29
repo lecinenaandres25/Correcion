@@ -1,0 +1,67 @@
+El gimnasio Cuerpo Sano te ha encargado el desarrollo de un sistema de control para la gestión de sus máquinas y socios. Escribe un programa en Java que permita crear y mantener una base de datos con el código de máquina y calorías por hora; así como sus socios indicando, para cada socio, su DNI y fecha de alta.
+
+Las máquinas tienen un gasto calórico entre 100 y 1200 calorías por hora.
+
+El programa se realizará con una implementación POO.
+
+Apartado 1: Diseño de clases (2 puntos)
+Constructor de máquina: acepta código y calorías (inmutables).
+
+El código consta de: 2 letras + 3 dígitos + 1 letra. La primera letra corresponde al módulo 5 de la suma de los dígitos (A=0, E=1, I=2, O=3, U=4). La última letra debe ser consonante (no vocal, no Q, no Ñ).
+
+Calorías fuera de rango lanza CaloriasFueraDeRangoException.
+
+No hay máquinas duplicadas.
+
+No hay socios duplicados (por DNI). Orden natural de socios por fecha de alta.
+
+Clase UtilGimnasio con método validaDNI.
+
+Métodos: getCalorias, getCodigo, getSocio, setSocioMaquina.
+
+Estructura CRUD interna.
+
+Apartado 2: Clase Principal (1 punto)
+Clase ExamenGimnasio con main. Datos de gimnasio.dat. Menú:
+
+text
+1- Añadir máquina
+2- Borrar máquina
+3- Listado por calorías
+4- Añadir socio
+5- Listado de socios
+6- Socios de una máquina
+7- Extensión: Asignar tipo de socio
+0- Salir
+Apartado 3: Persistencia (1 punto)
+Método lectura para cargar datos.
+
+Apartado 4: Métodos específicos
+4.1 nuevaMaquina (1 punto)
+Solicita código y determina aleatoriamente las calorías (100-1200).
+
+4.2 nuevoSocio (1 punto)
+Solicita DNI y fecha de alta.
+
+4.3 listadoMaquinas (1 punto)
+Muestra (código, calorías) con tabulador.
+
+4.4 listadoSocios (1 punto)
+Formato: %9s\t%s (DNI alineado a la derecha).
+
+4.5 sociosMaquina (1 punto)
+Muestra socios de una máquina ordenados por fecha de alta.
+
+Apartado 5: Extensión (1 punto)
+Tipos de socio:
+
+Socio básico → interesa su horario permitido
+
+Socio premium → interesa si usa entrenador personal
+
+Método asignarMembresia que asigna aleatoriamente.
+
+Fórmula
+java
+random(Maquina.MAXIMO - Maquina.MINIMO + 1) + Maquina.MINIMO
+// MINIMO = 100, MAXIMO = 1200
