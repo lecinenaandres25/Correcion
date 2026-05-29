@@ -1,0 +1,67 @@
+La tienda Compra Rápido te ha encargado el desarrollo de un sistema de control para la gestión de sus productos y clientes. Escribe un programa en Java que permita crear y mantener una base de datos con el código de barras y precio de los productos; así como sus clientes indicando, para cada cliente, su NIF y teléfono.
+
+Los productos tienen un precio entre 0.50€ y 999.99€ (en céntimos de euro, número entero: 50 a 99999 céntimos).
+
+El programa se realizará con una implementación POO.
+
+Apartado 1: Diseño de clases (2 puntos)
+Constructor de producto: acepta código de barras y precio (inmutables).
+
+El código de barras consta de: 8 dígitos. El último dígito es el módulo 10 de la suma de los 7 primeros.
+
+Precio fuera de rango lanza PrecioFueraDeRangoException.
+
+No hay productos duplicados.
+
+No hay clientes duplicados (por NIF). Orden natural de clientes por nombre.
+
+Clase UtilTienda con método validaNIF.
+
+Métodos: getPrecio, getCodigoBarras, getCliente, setClienteProducto.
+
+Estructura CRUD interna.
+
+Apartado 2: Clase Principal (1 punto)
+Clase ExamenTienda con main. Datos de tienda.dat. Menú:
+
+text
+1- Añadir producto
+2- Borrar producto
+3- Listado por precio
+4- Añadir cliente
+5- Listado de clientes
+6- Clientes de un producto
+7- Extensión: Asignar tipo de cliente
+0- Salir
+Apartado 3: Persistencia (1 punto)
+Método lectura para cargar datos.
+
+Apartado 4: Métodos específicos
+4.1 nuevoProducto (1 punto)
+Solicita código de barras y determina aleatoriamente el precio (50-99999 céntimos).
+
+4.2 nuevoCliente (1 punto)
+Solicita NIF y teléfono.
+
+4.3 listadoProductos (1 punto)
+Muestra (código, precio) con tabulador.
+
+4.4 listadoClientes (1 punto)
+Formato: %9s\t%s (NIF alineado a la derecha).
+
+4.5 clientesProducto (1 punto)
+Muestra clientes de un producto ordenados por nombre.
+
+Apartado 5: Extensión (1 punto)
+Tipos de cliente:
+
+Cliente habitual → interesa su número de compras
+
+Cliente premium → interesa su cuota mensual
+
+Método asignarCategoria que asigna aleatoriamente.
+
+Fórmula
+java
+random(Producto.MAXIMO - Producto.MINIMO + 1) + Producto.MINIMO
+// MINIMO = 50, MAXIMO = 99999 (céntimos)
