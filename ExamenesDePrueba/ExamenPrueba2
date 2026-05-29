@@ -1,0 +1,71 @@
+La biblioteca LeeQueTeLee te ha encargado el desarrollo de un sistema de control para la gestión de sus libros y socios. Escribe un programa en Java que permita crear y mantener una base de datos con el ISBN y número de páginas de los libros; así como sus socios indicando, para cada socio, su DNI y nombre completo.
+
+Los libros de la biblioteca tienen entre 50 y 1500 páginas.
+
+El programa se realizará con una implementación POO con las opciones que más adelante se indican.
+
+Apartado 1: Diseño de clases (2 puntos)
+Implementa la/s clase/s apropiada/s para la representación de los datos de modo que:
+
+El constructor de un libro debe aceptar su ISBN y número de páginas; y sus datos no podrán ser modificados a posteriori.
+
+El ISBN consta de 13 dígitos (formato estándar). El primer dígito debe ser el módulo 10 de la suma de los 12 dígitos restantes.
+
+El intento de crear un libro con páginas fuera de rango lanza la excepción PaginasFueraDeRangoException.
+
+No puede haber libros duplicados en el sistema.
+
+No puede haber socios duplicados (por DNI), aunque sí puede haber dos o más socios con el mismo nombre. Los socios se ordenan de forma natural mediante su nombre.
+
+Existe una clase UtilBiblioteca con un método validaDNI.
+
+Existe un método getPaginas, getISBN y getSocio.
+
+Existe un método setSocioLibro para relacionar un socio con un libro.
+
+Estructura de almacenamiento interna para gestionar el CRUD.
+
+Apartado 2: Clase Principal (1 punto)
+Crear una clase ExamenBiblioteca con método main. Los datos se leen de biblioteca.dat (si existe). Menú:
+
+text
+1- Añadir libro
+2- Borrar libro
+3- Listado por número de páginas
+4- Añadir socio
+5- Listado de socios
+6- Socios de un libro
+7- Extensión: Asignar categoría de socio
+0- Salir
+Apartado 3: Persistencia (1 punto)
+Método lectura que implemente el algoritmo de lectura del fichero (serialización binaria).
+
+Apartado 4: Métodos específicos
+4.1 Método nuevoLibro (1 punto)
+Solicita el ISBN y determina aleatoriamente el número de páginas (entre 50 y 1500).
+
+4.2 Método nuevoSocio (1 punto)
+Solicita DNI y nombre, validando que no esté duplicado.
+
+4.3 Método listadoLibros (1 punto)
+Muestra el par (ISBN, páginas) con encabezado y tabulador.
+
+4.4 Método listadoSocios (1 punto)
+Muestra el par (DNI, nombre) con DNI alineado a la derecha (ancho 9).
+
+4.5 Método sociosLibro (1 punto)
+Solicita un ISBN y muestra los socios asociados ordenados por nombre.
+
+Apartado 5: Extensión (1 punto)
+Existen dos tipos de socios:
+
+Socio estudiante → interesa su centro educativo
+
+Socio profesor → interesa su departamento
+
+Método asignarTipoSocio que asigna aleatoriamente el tipo a todos los socios que no lo tengan.
+
+Fórmula
+java
+random(Libro.MAXIMO - Libro.MINIMO + 1) + Libro.MINIMO
+// MINIMO = 50, MAXIMO = 1500
