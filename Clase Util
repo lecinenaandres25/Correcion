@@ -1,0 +1,13 @@
+public class Util {
+    public static boolean validaNIF(String nif) {
+        if (nif == null || nif.length() != 9) return false;
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        try {
+            int numero = Integer.parseInt(nif.substring(0, 8));
+            char letra = nif.charAt(8);
+            return letra == letras.charAt(numero % 23);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
