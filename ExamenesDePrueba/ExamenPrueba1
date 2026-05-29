@@ -1,0 +1,102 @@
+La empresa TechSolutions te ha encargado el desarrollo de un sistema de control para la gestión de sus empleados y proyectos. Escribe un programa en Java que permita crear y mantener una base de datos con el código y nombre de los proyectos; así como sus empleados asignados indicando, para cada empleado, su DNI y categoría profesional.
+
+Los proyectos de la empresa tienen una duración estimada entre 3 y 24 meses.
+
+El programa se realizará con una implementación POO con las opciones que más adelante se indican.
+
+Apartado 1: Diseño de clases (2 puntos)
+Implementa la/s clase/s apropiada/s para la representación de los datos en un programa de ordenador de modo que:
+
+El constructor de un proyecto debe aceptar su código y duración en meses; y sus datos no podrán ser modificados a posteriori.
+
+El código consta de: dos letras mayúsculas, tres números dígitos y dos letras mayúsculas. La primera letra debe ser la vocal correspondiente al módulo 3 del número formado por los tres dígitos (A=0, E=1, I=2, O=3, U=4).
+
+El intento de crear un proyecto con una duración fuera de rango lanza la excepción DuracionFueraDeRangoException.
+
+No puede haber proyectos duplicados en el sistema.
+
+No puede haber empleados duplicados (por DNI), aunque si puede haber dos o más empleados con el mismo nombre. Los empleados se ordenan de forma natural mediante su DNI.
+
+Existe una clase (que no hay que implementar) Validacion que define un método de clase validaDNI que, tomando como parámetro una cadena de texto que representa un DNI, devuelve verdadero si el DNI es válido y falso en caso contrario.
+
+Existe un método getDuracion para determinar la duración de un proyecto. También getCodigo y getEmpleado.
+
+Existe un método setEmpleadoProyecto que permite relacionar un empleado con un proyecto.
+
+Existe una estructura que mantendrá el almacenamiento interno de un CRUD para gestionar los proyectos y empleados de TechSolutions. Podéis elegir la/s estructura/s de almacenamiento o colección/es que consideréis mejor.
+
+Apartado 2: Clase Principal (1 punto)
+Crear una clase ExamenRecuperacion que contenga un método main en el que declararéis una variable correspondiente a la estructura de almacenamiento antes indicada.
+
+Los datos se leerán de un fichero de organización secuencial denominado proyectos.dat que se cargará, si existe, cuando se inicia el programa y que permite mantener la información.
+
+A continuación, se mostrará un menú con las siguientes opciones:
+
+text
+1- Añadir proyecto
+2- Borrar proyecto
+3- Listado por duración (ascendente)
+4- Añadir empleado
+5- Listado de empleados
+6- Empleados de un proyecto
+7- Extensión: Asignar categoría aleatoria
+0- Salir
+Se ejecutará un método que tomará como parámetro la opción introducida.
+
+Siempre que se produzca un cambio en los datos, se guardará (escribirá) el contenido afectado en el mismo fichero que se lee al inicio del programa.
+
+Apartado 3: Persistencia (1 punto)
+Escribir un método lectura que implemente el algoritmo de lectura de los datos en el fichero. Podéis elegir el tipo de fichero que creáis es mejor (serialización binaria).
+
+Apartado 4: Métodos específicos
+4.1 Método nuevoProyecto (1 punto)
+Escribir un método nuevoProyecto que solicitará el código de un proyecto y determinará aleatoriamente la duración en meses (entre 3 y 24), añadiéndolo al sistema.
+
+Fórmula:
+
+java
+random(Proyecto.MAXIMO - Proyecto.MINIMO + 1) + Proyecto.MINIMO
+4.2 Método nuevoEmpleado (1 punto)
+Escribir un método nuevoEmpleado que solicitará la información pertinente (DNI y nombre) para añadir un empleado y lo añadirá al sistema. Validar que el DNI no esté duplicado.
+
+4.3 Método listadoProyectos (1 punto)
+Escribir un método listadoProyectos que muestre un listado con el par (código, duración) de todos los proyectos de TechSolutions. Debe haber una línea de encabezado, separando los datos con un carácter de tabulación, seguida de una línea con los datos de cada proyecto.
+
+4.4 Método listadoEmpleados (1 punto)
+Escribir un método listadoEmpleados que muestre un listado con el par (DNI del empleado, nombre) de todos los empleados de TechSolutions. Debe haber una línea de encabezado, separando los datos con un carácter de tabulación; el DNI debe estar alineado a la derecha, antes del tabulador, con su encabezado.
+
+Formato sugerido:
+
+java
+return String.format("%9s\t%s", DNI, nombre);
+4.5 Método empleadosProyecto (1 punto)
+Escribir un método empleadosProyecto que solicitará un proyecto por su código y nos mostrará un listado, usando el mismo formato de listadoEmpleados, de todos los empleados asociados a dicho proyecto, ordenados por su nombre.
+
+Apartado 5: Extensión de la funcionalidad (1 punto)
+Existen dos tipos de empleados:
+
+Empleado técnico (desarrollador), del que nos interesa conocer su lenguaje principal de programación (Java, Python, C++, etc.).
+
+Empleado de gestión (project manager), que puede ser scrum master o no.
+
+Escribe un método asignarCategoria que, de forma aleatoria, asigne una categoría a todos aquellos empleados para los que no esté declarada, complete la información necesaria y actualice los datos.
+
+Nota: No resulta necesario hacer modificaciones en todo lo anterior. La extensión debe ser independiente.
+
+Ayudas y aclaraciones
+La clase Proyecto debe tener constantes:
+
+java
+public static final int MINIMO = 3;
+public static final int MAXIMO = 24;
+El código debe validarse con el siguiente criterio:
+
+Formato: LNNNLL (Letra, 3 números, 2 letras)
+
+Primera letra = vocal según módulo 3 del número de 3 cifras
+
+Las dos últimas letras deben ser consonantes (no vocales, no Ñ, no Q)
+
+Ejemplo de código válido: A123BC (si 123 % 3 = 0 → 'A')
+
+Para la extensión, puedes modificar la clase Empleado añadiendo nuevos atributos o crear clases hijas.
