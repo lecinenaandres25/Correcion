@@ -1,0 +1,66 @@
+public class Avion implements Serializable {
+    // Capacidad minima y maxima
+    public final static int MINIMO = 50;
+    public final static int MAXIMO = 348;
+    
+    String matricula;
+    int capacidad;
+    
+    public Avion(String matricula, int capacidad) {
+        /** Crea un avión validando que la capacidad esta entre minimo y maximo
+            @param 
+            @param
+            throws
+            throw NullPointerException si matricula es nula
+            throw IllegalArgumentException
+        */
+        if (capacidad < MINIMO || capacidad > MAXIMO) {
+            throw new CapacidadFueraDeRangoException();
+        }
+        if (matricula == null) {
+            throw new NullPointerException();
+        }
+        if (!valida(matricula)) {
+            throw new IllegalArgumentException();
+        }
+        this.matricula = matricula;
+        this.capacidad = capacidad;
+    }
+    
+    private boolean valida(String m) {
+        if (m.length() != 8) {
+            throw new IllegalArgumentException("La longitud de la matricula debe ser de 8 caracteres.");
+        }
+        String vocales = "AEIOU";
+        String S = m.toUpperCase();
+        int numero = Integer.parseInt(S.substring(1,5));
+        if (S.charAt(0) != vocales.charAt(numero % 5)) {
+            return false;
+        }
+        for (int i = 5; i < 8; i++) {
+            char c = m.charAt(i);
+            if (c < 'B' || c > 'Z' || c == 'Q' || c == 'Ñ' || vocales.indexOf(c) != -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public String getMatricula() {
+        return matricula;
+    }
+    
+    public int getPlazas() {
+        return capacidad;
+    }
+    
+    @Override
+    public int hashCode() {
+        return matricula.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return matricula.equals(((Avion)o).matricula);
+    }
+}
